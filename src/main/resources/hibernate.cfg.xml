@@ -11,9 +11,13 @@
 
     <property name="hibernate.c3p0.timeout">1</property>
 
-
-    <!-- Añadir aquí las anotaciones mapping -->
-    <!-- <mapping class=""/> -->
+    <mapping class="abd.p1.model.User"/>
+    <mapping class="abd.p1.model.Pregunta"/>
+    <mapping class="abd.p1.model.Opcion"/>
+    <mapping class="abd.p1.model.message.Message"/>
+    <mapping class="abd.p1.model.message.FriendRequestMessage"/>
+    <mapping class="abd.p1.model.message.QuestionRequestMessage"/>
+      <mapping class="abd.p1.model.message.TextMessage"/>
 
   </session-factory>
 </hibernate-configuration>

@@ -1,12 +1,21 @@
 package abd.p1.model;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "questions")
 public class Pregunta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "content", nullable = false)
     private String enunciado;
-    private List<Opcion> opciones;
+
+    @Transient private List<Opcion> opciones;
 
     public Pregunta() {
         opciones = new ArrayList<>();

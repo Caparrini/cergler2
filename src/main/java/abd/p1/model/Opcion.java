@@ -1,12 +1,23 @@
 package abd.p1.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "answers")
 public class Opcion {
-    private Pregunta preguntaMadre;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Transient private Pregunta preguntaMadre;
+
+    @Column(name = "questionOrder", nullable = false)
     private int numeroOrden;
+
+    @Column(name = "content", nullable = false)
     private String texto;
 
-    public Opcion() {
-    }
+    public Opcion() {}
 
     public Pregunta getPreguntaMadre() {
         return preguntaMadre;
@@ -34,7 +45,6 @@ public class Opcion {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "(" + numeroOrden + ") " + texto;
     }
 }
