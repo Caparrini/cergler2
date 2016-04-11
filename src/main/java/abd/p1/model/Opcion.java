@@ -3,18 +3,22 @@ package abd.p1.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "answers")
+@Table(name = "answers", uniqueConstraints = @UniqueConstraint(columnNames = {"questionId", "questionOrder"}))
 public class Opcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="answerId")
     private int id;
-    @Transient private Pregunta preguntaMadre;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "questionId", foreignKey = @ForeignKey(name = "ANSWER_QUESTION_ID_FK"))
+    private Pregunta preguntaMadre;
 
     @Column(name = "questionOrder", nullable = false)
     private int numeroOrden;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, length = 500)
     private String texto;
 
     public Opcion() {}

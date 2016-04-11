@@ -21,8 +21,11 @@ public abstract class Message {
     @Column(nullable = false)
     private boolean readStatus;
 
-    @Transient private User sender;
-    @Transient private User receiver;
+    @OneToOne(optional = false)
+    private User sender;
+
+    @OneToOne(optional = false)
+    private User receiver;
 
     protected Message() {}
 
