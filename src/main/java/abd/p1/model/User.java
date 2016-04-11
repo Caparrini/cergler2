@@ -61,7 +61,7 @@ public class User {
     private Set<User> friends;
 
     @Transient private ArrayList<Message> received;
-    @Transient private ArrayList<Message> sended;
+    @Transient private ArrayList<Message> sent;
 
     protected User() {}
 
