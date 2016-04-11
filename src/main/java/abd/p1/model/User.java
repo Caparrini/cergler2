@@ -2,6 +2,7 @@ package abd.p1.model;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import abd.p1.model.message.Message;
 
@@ -23,20 +24,21 @@ public class User {
     }
 
     @Id
+    @Column(length = 250)
     private String email;
 
     @Column(nullable = false, length = 162)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private OtherGender otherGender;
 
     @Temporal(TemporalType.DATE)
@@ -51,7 +53,8 @@ public class User {
     @Column(length = 500)
     private String description;
 
-    @Transient private ArrayList<String> interests;
+    @ElementCollection
+    private List<String> interests;
 
     @Transient private ArrayList<User> friends;
 

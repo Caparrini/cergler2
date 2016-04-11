@@ -5,19 +5,19 @@ import java.sql.Timestamp;
 import abd.p1.model.Pregunta;
 import abd.p1.model.User;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "questionreq_message")
 public class QuestionRequestMessage extends Message {
 
-    @Column(nullable = false)
-    private int questionId;
-
-    @Transient private Pregunta question;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "questionId", foreignKey = @ForeignKey(name = "MESSAGE_QUESTION_ID_FK"))
+    private Pregunta question;
 
     protected QuestionRequestMessage() {}
 
