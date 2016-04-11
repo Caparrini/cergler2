@@ -12,10 +12,11 @@ public class Pregunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, length = 500)
     private String enunciado;
 
-    @Transient private List<Opcion> opciones;
+    @OneToMany(mappedBy = "preguntaMadre", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Opcion> opciones;
 
     public Pregunta() {
         opciones = new ArrayList<>();

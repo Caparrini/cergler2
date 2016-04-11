@@ -48,13 +48,17 @@ public class User {
     @Lob
     private byte[] profileImage;
 
+    @Column(nullable = true)
     private float latidue;
+
+    @Column(nullable = true)
     private float longitude;
 
     @Column(length = 500)
     private String description;
 
     @ElementCollection
+    @CollectionTable(name = "interests")
     private List<String> interests;
 
     @OneToMany
