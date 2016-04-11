@@ -3,6 +3,7 @@ package abd.p1.model;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import abd.p1.model.message.Message;
 
@@ -56,7 +57,8 @@ public class User {
     @ElementCollection
     private List<String> interests;
 
-    @Transient private ArrayList<User> friends;
+    @OneToMany
+    private Set<User> friends;
 
     @Transient private ArrayList<Message> received;
     @Transient private ArrayList<Message> sended;
