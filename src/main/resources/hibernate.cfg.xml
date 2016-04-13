@@ -11,6 +11,7 @@
 
     <property name="hibernate.c3p0.timeout">1</property>
 
+    <mapping class="abd.p1.model.Rating"/>
     <mapping class="abd.p1.model.User"/>
     <mapping class="abd.p1.model.Pregunta"/>
     <mapping class="abd.p1.model.Opcion"/>

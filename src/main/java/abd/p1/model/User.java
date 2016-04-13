@@ -64,6 +64,9 @@ public class User {
     @OneToMany
     private Set<User> friends;
 
+    @OneToMany(mappedBy = "rater", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Rating> ratings;
+
     @Transient private ArrayList<Message> received;
     @Transient private ArrayList<Message> sent;
 
