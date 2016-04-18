@@ -1,6 +1,11 @@
 package abd.p1.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -63,6 +68,11 @@ public class Pregunta {
 
     public Opcion getOpcion(int num) {
         return opciones.get(num - 1);
+    }
+
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    public List<Opcion> getAllOptions() {
+        return this.opciones;
     }
 
     public void intercambiarOpciones(int i, int j) {
