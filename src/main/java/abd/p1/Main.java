@@ -1,5 +1,7 @@
 package abd.p1;
 
+import abd.p1.controller.MainController;
+import abd.p1.model.Core;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -33,6 +35,9 @@ public class Main {
         
         try {
             sf = buildSessionFactory();
+
+            Core core = new Core(sf.openSession());
+            MainController controller = new MainController(core);
             
             // Mostrar ventana de login y comprobar validez del usuario y contraseña.
             // Si son validos, mostrar ventana principal.

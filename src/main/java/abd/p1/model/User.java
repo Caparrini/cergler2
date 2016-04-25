@@ -13,12 +13,12 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    private enum Gender {
+    enum Gender {
         MALE,
         FEMALE
     }
 
-    private enum OtherGender {
+    enum OtherGender {
         MALE,
         FEMALE,
         BOTH
@@ -75,5 +75,45 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public boolean checkPass(String password) {
+        return this.password.equals(password);
+    }
+
+    public void setUsername(String username) {
+        this.name = username;
+    }
+
+    public void setBirthDate(Date date) {
+        this.birthDate = date;
+    }
+
+    public void setDescription(String text) {
+        this.description = text;
+    }
+
+    public void addInterest(String i) {
+        this.interests.add(i);
+    }
+
+    public void removeInterest(String i) {
+        this.interests.remove(i);
+    }
+
+    public void setGender(Gender g) {
+        this.gender = g;
+    }
+
+    public void setGenderPreference(OtherGender g) {
+        this.otherGender = g;
+    }
+
+    public void setPassword(String p) {
+        this.password = p;
+    }
+
+    public void setProfileImage(byte[] b) {
+        this.profileImage = b;
     }
 }
