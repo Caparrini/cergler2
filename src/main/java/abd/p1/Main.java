@@ -2,7 +2,9 @@ package abd.p1;
 
 import abd.p1.controller.MainController;
 import abd.p1.model.Core;
+import abd.p1.view.LoginFrame;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -30,23 +32,18 @@ public class Main {
    
     
     public static void main(String[] args) {
-
-        SessionFactory sf = null;
-        
         try {
-            sf = buildSessionFactory();
+            SessionFactory sf = buildSessionFactory();
 
-            Core core = new Core(sf.openSession());
+            Core core = new Core(sf);
             MainController controller = new MainController(core);
-            
-            // Mostrar ventana de login y comprobar validez del usuario y contraseña.
-            // Si son validos, mostrar ventana principal.
+            LoginFrame loginFrame = new LoginFrame(controller);
+            controller.addLoginView(loginFrame);
 
+            loginFrame.setEnabled(true);
+            loginFrame.setVisible(true);
         } catch (HibernateException e) {
             e.printStackTrace();
-        } finally {
-            if (sf != null) sf.close();
         }
     }
-
 }

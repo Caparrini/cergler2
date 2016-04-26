@@ -2,27 +2,34 @@ package abd.p1.bd;
 
 import abd.p1.model.Opcion;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 import java.util.Optional;
 
 public class OptionDao extends GenericDao<Integer, Opcion> {
 
-    private Session session;
+    private SessionFactory sessionF;
 
-    public OptionDao(Session s) {
-        super(s);
-        this.session = s;
+    public OptionDao(SessionFactory sf) {
+        super(sf);
+        this.sessionF = sf;
     }
 
     @Override
     public Optional<Opcion> find(Integer id) {
-        return Optional.ofNullable(session.byId(Opcion.class).load(id));
+        Session session = sessionF.openSession();
+        Optional<Opcion> res = Optional.ofNullable(session.byId(Opcion.class).load(id));
+        session.close();
+        return res;
     }
 
     @Override
     public List<Opcion> findAll() {
-        return session.createCriteria(Opcion.class).list();
+        Session session = sessionF.openSession();
+        List<Opcion> res = session.createCriteria(Opcion.class).list();
+        session.close();
+        return res;
     }
 
     @Override
@@ -32,6 +39,8 @@ public class OptionDao extends GenericDao<Integer, Opcion> {
 
     @Override
     public void deleteById(Integer id) {
+        Session session = sessionF.openSession();
         this.delete(session.load(Opcion.class, id));
+        session.close();
     }
 }

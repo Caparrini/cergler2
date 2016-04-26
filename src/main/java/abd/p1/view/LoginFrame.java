@@ -5,17 +5,70 @@
  */
 package abd.p1.view;
 
+import abd.p1.controller.MainController;
+import abd.p1.view.res.HintPassField;
+import abd.p1.view.res.HintTextField;
+
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  *
  * @author Capa
  */
 public class LoginFrame extends javax.swing.JFrame {
 
+    private MainController controller;
+
     /**
      * Creates new form loginFrame
      */
-    public LoginFrame() {
+    public LoginFrame(MainController _controller) {
+        this.controller = _controller;
+        initUI();
+    }
+
+    private void initUI() {
         initComponents();
+        buttonAccept.addActionListener(l -> {
+            String email = textFieldMail.getText();
+            char[] bytes = textFieldPassword.getPassword();
+
+            if (email.isEmpty() || bytes == null) {
+                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
+            } else {
+                controller.loginEvent(textFieldMail.getText(),
+                                      String.valueOf(textFieldPassword.getPassword()));
+                textFieldMail.setText(null);
+                textFieldPassword.setText(null);
+            }
+        });
+
+        buttonNewUser.addActionListener(l -> {
+            String email = textFieldMail.getText();
+            char[] bytes = textFieldPassword.getPassword();
+
+            if (email.isEmpty() || bytes == null) {
+                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
+            } else {
+                controller.signupEvent(email, String.valueOf(bytes));
+                textFieldMail.setText(null);
+                textFieldPassword.setText(null);
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controller.shutdown();
+                e.getWindow().dispose();
+            }
+        });
+    }
+
+    public void showValidateError() {
+        JOptionPane.showMessageDialog(this, "Email y / o contraseña incorrectos");
     }
 
     /**
@@ -29,8 +82,8 @@ public class LoginFrame extends javax.swing.JFrame {
 
         labelMail = new java.awt.Label();
         labelPassword = new java.awt.Label();
-        textFieldMail = new java.awt.TextField();
-        textFieldPassword = new java.awt.TextField();
+        textFieldMail = new HintTextField("email");
+        textFieldPassword = new HintPassField("Password");
         buttonAccept = new java.awt.Button();
         buttonNewUser = new java.awt.Button();
 
@@ -84,50 +137,14 @@ public class LoginFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginFrame().setVisible(true);
-            }
-        });
-    }
+    }// </editor-fold>
 
     // Variables declaration - do not modify                     
     private java.awt.Button buttonAccept;
     private java.awt.Button buttonNewUser;
     private java.awt.Label labelMail;
     private java.awt.Label labelPassword;
-    private java.awt.TextField textFieldMail;
-    private java.awt.TextField textFieldPassword;
+    private HintTextField textFieldMail;
+    private HintPassField textFieldPassword;
     // End of variables declaration                   
 }

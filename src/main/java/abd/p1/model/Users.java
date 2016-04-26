@@ -1,15 +1,15 @@
 package abd.p1.model;
 
 import abd.p1.bd.UserDao;
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.Optional;
 
 public class Users {
     private UserDao dao = null;
 
-    public Users(Session _session) {
-        this.dao = new UserDao(_session);
+    public Users(SessionFactory _sessionF) {
+        this.dao = new UserDao(_sessionF);
     }
 
     public void addUser(User u) {

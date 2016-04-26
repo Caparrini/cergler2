@@ -1,6 +1,6 @@
 package abd.p1.model;
 
-import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.Date;
 import java.util.Observable;
@@ -8,18 +8,21 @@ import java.util.Optional;
 
 public class Core extends Observable {
 
-    private Session session;
+    private SessionFactory sessionF;
 
     private User logedUser;
     private Users presentUsers;
 
-    public Core(Session _session) {
-        this.session = _session;
-        this.presentUsers = new Users(session);
+    public Core(SessionFactory _sessionF) {
+        this.sessionF = _sessionF;
+        this.presentUsers = new Users(sessionF);
+    }
+
+    public void quit() {
+        if (sessionF != null) sessionF.close();
     }
 
     public void login() {
-        this.setChanged();
         // TODO: send login message
     }
 
@@ -30,13 +33,11 @@ public class Core extends Observable {
     }
 
     public void logout() {
-        this.setChanged();
         // TODO: send logout message
     }
 
     public void signupDialog(String username, String password) {
         this.logedUser = new User(username, password);
-        this.setChanged();
         // TODO: send signup message
     }
 
@@ -89,5 +90,10 @@ public class Core extends Observable {
 
     public void changeUserPic(byte[] b) {
         this.logedUser.setProfileImage(b);
+    }
+
+    public void signup() {
+        this.presentUsers.addUser(this.logedUser);
+        // TODO: Send message
     }
 }
