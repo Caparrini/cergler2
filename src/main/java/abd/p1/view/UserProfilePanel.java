@@ -10,13 +10,19 @@ package abd.p1.view;
  * @author Capa
  */
 public class UserProfilePanel extends javax.swing.JPanel {
-
+	private boolean editable;
     /**
      * Creates new form UserProfilePanel
      */
-    public UserProfilePanel() {
-        initComponents();
-    }
+	public UserProfilePanel(){
+		this.editable = false;
+		initComponents();
+	}
+
+	public UserProfilePanel(boolean editable) {
+		this.editable = editable;
+		initComponents();
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,6 +173,14 @@ public class UserProfilePanel extends javax.swing.JPanel {
                     .addComponent(buttonChangeTaste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        buttonAddHobby.setVisible(editable);
+        buttonChangeAvatar.setVisible(editable);
+        buttonChangeBirthDate.setVisible(editable);
+        buttonChangeName.setVisible(editable);
+        buttonChangeSex.setVisible(editable);
+        buttonChangeTaste.setVisible(editable);
+        buttonDelHobby.setVisible(editable);
+        buttonEditHobby.setVisible(editable);
     }// </editor-fold>                        
 
     private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {                                               
