@@ -28,8 +28,8 @@ public class UserProfileEdit extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        userProfilePanel1 = new UserProfilePanel();
-        userProfilePanel2 = new UserProfilePanel();
+        userProfilePanel1 = new UserProfilePanel(true);
+        userProfilePanel2 = new UserProfilePanel(true);
         buttonChangePassword = new java.awt.Button();
         buttonCancel = new java.awt.Button();
         buttonSaveChanges = new java.awt.Button();
