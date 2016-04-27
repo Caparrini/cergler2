@@ -36,15 +36,12 @@ public abstract class GenericDao<K extends Serializable, V> {
     }
 
     public void delete(V value) {
-        Session session = sessionF.openSession();
-        try {
+        try (Session session = sessionF.openSession()) {
             Transaction tx = session.beginTransaction();
             session.delete(value);
             tx.commit();
         } catch (org.hibernate.ObjectNotFoundException e) {
             // Who cares?
-        } finally {
-            session.close();
         }
     }
 }

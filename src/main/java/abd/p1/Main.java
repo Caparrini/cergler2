@@ -4,7 +4,6 @@ import abd.p1.controller.MainController;
 import abd.p1.model.Core;
 import abd.p1.view.LoginFrame;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
