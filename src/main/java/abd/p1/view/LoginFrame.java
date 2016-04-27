@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package abd.p1.view;
 
 import abd.p1.controller.MainController;
@@ -10,20 +5,20 @@ import abd.p1.view.res.HintPassField;
 import abd.p1.view.res.HintTextField;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- *
- * @author Capa
- */
 public class LoginFrame extends javax.swing.JFrame {
 
     private MainController controller;
 
-    /**
-     * Creates new form loginFrame
-     */
+    private java.awt.Button buttonAccept;
+    private java.awt.Button buttonNewUser;
+    private HintTextField textFieldMail;
+    private HintPassField textFieldPassword;
+
+
     public LoginFrame(MainController _controller) {
         this.controller = _controller;
         initUI();
@@ -31,32 +26,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void initUI() {
         initComponents();
-        buttonAccept.addActionListener(l -> {
-            String email = textFieldMail.getText();
-            char[] bytes = textFieldPassword.getPassword();
 
-            if (email.isEmpty() || bytes == null) {
-                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
-            } else {
-                controller.loginEvent(textFieldMail.getText(),
-                                      String.valueOf(textFieldPassword.getPassword()));
-                textFieldMail.setText(null);
-                textFieldPassword.setText(null);
-            }
-        });
+        textFieldMail.addActionListener(submitFields("login"));
+        textFieldPassword.addActionListener(submitFields("login"));
 
-        buttonNewUser.addActionListener(l -> {
-            String email = textFieldMail.getText();
-            char[] bytes = textFieldPassword.getPassword();
-
-            if (email.isEmpty() || bytes == null) {
-                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
-            } else {
-                controller.signupEvent(email, String.valueOf(bytes));
-                textFieldMail.setText(null);
-                textFieldPassword.setText(null);
-            }
-        });
+        buttonAccept.addActionListener(submitFields("login"));
+        buttonNewUser.addActionListener(submitFields("signup"));
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -80,8 +55,8 @@ public class LoginFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        labelMail = new java.awt.Label();
-        labelPassword = new java.awt.Label();
+        java.awt.Label labelMail = new java.awt.Label();
+        java.awt.Label labelPassword = new java.awt.Label();
         textFieldMail = new HintTextField("email");
         textFieldPassword = new HintPassField("Password");
         buttonAccept = new java.awt.Button();
@@ -139,12 +114,24 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    // Variables declaration - do not modify                     
-    private java.awt.Button buttonAccept;
-    private java.awt.Button buttonNewUser;
-    private java.awt.Label labelMail;
-    private java.awt.Label labelPassword;
-    private HintTextField textFieldMail;
-    private HintPassField textFieldPassword;
-    // End of variables declaration                   
+    private ActionListener submitFields(String action) {
+        return e -> {
+            String email = textFieldMail.getText();
+            char[] bytes = textFieldPassword.getPassword();
+
+            if (email.isEmpty() || bytes == null) {
+                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
+            } else {
+                // Java please support void method references
+                String pass = String.valueOf(bytes);
+                switch (action) {
+                    case "login": controller.loginEvent(email, pass); break;
+                    case "signup": controller.signupEvent(email, pass); break;
+                }
+
+                textFieldMail.setText(null);
+                textFieldPassword.setText(null);
+            }
+        };
+    }
 }
