@@ -16,7 +16,7 @@ public class MainController {
         this.loginFrame = f;
     }
 
-    void init(Watcher w) {
+    public void init(Watcher w) {
         core.addWatcher(w);
     }
 
@@ -25,8 +25,8 @@ public class MainController {
         core.quit();
     }
 
-    public void loginEvent(String username, String password) {
-        if (core.validate(username, password)) {
+    public void loginEvent(String email, String password) {
+        if (core.validatePass(email, password)) {
             core.login();
             // TODO: show main panel
         } else {
@@ -34,13 +34,16 @@ public class MainController {
         }
     }
 
-    void signupDialog(String username, String password) {
-        core.signupDialog(username, password);
+    public void signupEvent(String email, String password) {
+        if (!core.validateEmail(email)) {
+            core.signupProcess(email, password);
+        } else {
+            loginFrame.showUserExistsError();
+        }
     }
 
-    public void signupEvent(String username, String password) {
-
-        // TODO: show edit panel
+    public void createNewUserEvent() {
+        core.signup();
     }
 
     void logoutEvent() {

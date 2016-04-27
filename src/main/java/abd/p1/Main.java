@@ -39,8 +39,7 @@ public class Main {
             LoginFrame loginFrame = new LoginFrame(controller);
             controller.addLoginView(loginFrame);
 
-            loginFrame.setEnabled(true);
-            loginFrame.setVisible(true);
+            loginFrame.init();
         } catch (HibernateException e) {
             e.printStackTrace();
         }

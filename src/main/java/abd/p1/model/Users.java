@@ -20,6 +20,10 @@ public class Users {
         dao.delete(u);
     }
 
+    public Optional<User> isPresent(String email) {
+        return dao.find(email);
+    }
+
     public Optional<User> validate(String email, String password) {
         return dao
                 .find(email)

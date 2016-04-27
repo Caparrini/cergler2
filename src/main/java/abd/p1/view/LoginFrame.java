@@ -1,6 +1,9 @@
 package abd.p1.view;
 
 import abd.p1.controller.MainController;
+import abd.p1.misc.UpdateMessage;
+import abd.p1.misc.Watchable;
+import abd.p1.misc.Watcher;
 import abd.p1.view.res.HintPassField;
 import abd.p1.view.res.HintTextField;
 
@@ -9,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class LoginFrame extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame implements Watcher {
 
     private MainController controller;
 
@@ -22,6 +25,12 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame(MainController _controller) {
         this.controller = _controller;
         initUI();
+    }
+
+    public void init() {
+        this.controller.init(this);
+        this.setEnabled(true);
+        this.setVisible(true);
     }
 
     private void initUI() {
@@ -44,6 +53,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public void showValidateError() {
         JOptionPane.showMessageDialog(this, "Email y / o contraseña incorrectos");
+    }
+
+    public void showUserExistsError() {
+        JOptionPane.showMessageDialog(this, "El correo introducido ya existe");
     }
 
     /**
@@ -112,6 +125,7 @@ public class LoginFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>
 
     private ActionListener submitFields(String action) {
@@ -133,5 +147,16 @@ public class LoginFrame extends javax.swing.JFrame {
                 textFieldPassword.setText(null);
             }
         };
+    }
+
+    @Override
+    public void update(Watchable w, UpdateMessage arg) {
+        switch (arg.getEvent()) {
+            case SIGNUP:
+                UserProfileEdit newUserDialog = new UserProfileEdit(this, true);
+                newUserDialog.setLocationRelativeTo(null);
+                newUserDialog.setVisible(true);
+                break;
+        }
     }
 }

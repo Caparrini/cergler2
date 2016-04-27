@@ -1,5 +1,6 @@
 package abd.p1.model;
 
+import abd.p1.misc.UpdateMessage;
 import abd.p1.misc.Watchable;
 import org.hibernate.SessionFactory;
 
@@ -18,15 +19,27 @@ public class Core extends Watchable {
         this.presentUsers = new Users(sessionF);
     }
 
-    public void quit() {
-        if (sessionF != null) sessionF.close();
-    }
-
     public void login() {
-        // TODO: send login message
+        this.setChanged();
+        this.notifyViews(UpdateMessage.composeMessage(UpdateMessage.UpdateEvent.LOGIN, null));
     }
 
-    public boolean validate(String username, String password) {
+    public void signup() {
+        this.presentUsers.addUser(this.logedUser);
+        login();
+    }
+
+    public void signupProcess(String username, String password) {
+        this.logedUser = new User(username, password);
+        this.setChanged();
+        this.notifyViews(UpdateMessage.composeMessage(UpdateMessage.UpdateEvent.SIGNUP, null));
+    }
+
+    public boolean validateEmail(String username) {
+        return this.presentUsers.isPresent(username).isPresent();
+    }
+
+    public boolean validatePass(String username, String password) {
         Optional<User> u = this.presentUsers.validate(username, password);
         u.ifPresent(e -> this.logedUser = e);
         return u.isPresent();
@@ -36,9 +49,8 @@ public class Core extends Watchable {
         // TODO: send logout message
     }
 
-    public void signupDialog(String username, String password) {
-        this.logedUser = new User(username, password);
-        // TODO: send signup message
+    public void quit() {
+        if (sessionF != null) sessionF.close();
     }
 
     public void editUsername(String newUsername) {
@@ -90,10 +102,5 @@ public class Core extends Watchable {
 
     public void changeUserPic(byte[] b) {
         this.logedUser.setProfileImage(b);
-    }
-
-    public void signup() {
-        this.presentUsers.addUser(this.logedUser);
-        // TODO: Send message
     }
 }
