@@ -1,12 +1,12 @@
 package abd.p1.model;
 
+import abd.p1.misc.Watchable;
 import org.hibernate.SessionFactory;
 
 import java.util.Date;
-import java.util.Observable;
 import java.util.Optional;
 
-public class Core extends Observable {
+public class Core extends Watchable {
 
     private SessionFactory sessionF;
 

@@ -1,9 +1,8 @@
 package abd.p1.controller;
 
+import abd.p1.misc.Watcher;
 import abd.p1.model.Core;
 import abd.p1.view.LoginFrame;
-
-import java.util.Observer;
 
 public class MainController {
     private Core core;
@@ -17,12 +16,12 @@ public class MainController {
         this.loginFrame = f;
     }
 
-    void init(Observer o) {
-        core.addObserver(o);
+    void init(Watcher w) {
+        core.addWatcher(w);
     }
 
     public void shutdown() {
-        core.deleteObservers();
+        core.deleteWatchers();
         core.quit();
     }
 
