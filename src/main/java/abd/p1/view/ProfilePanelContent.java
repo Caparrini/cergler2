@@ -51,6 +51,10 @@ class ProfilePanelContent extends javax.swing.JPanel {
         initUI();
 	}
 
+    String getUsername() {
+        return this.userDetailsPanel.getUsername();
+    }
+
     private int yearsBetween(Date first, Date second) {
         Calendar a = Calendar.getInstance(Locale.US);
         Calendar b = Calendar.getInstance(Locale.US);

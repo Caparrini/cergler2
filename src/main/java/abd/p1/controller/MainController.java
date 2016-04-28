@@ -40,12 +40,16 @@ public class MainController {
         if (!core.validateEmail(email)) {
             core.signupProcess(email, password);
         } else {
-            loginFrame.showUserExistsError();
+            loginFrame.showEmailExistsError();
         }
     }
 
     public void createNewUserEvent(String username) {
-        core.signup(username);
+        if (!core.validateUsername(username)) {
+            core.signup(username);
+        } else {
+            loginFrame.showUsernameExistsError();
+        }
     }
 
     public void editBirthDate(Date date) {
@@ -53,7 +57,11 @@ public class MainController {
     }
 
     public void editUsername(String newUsername) {
-        core.editUsername(newUsername);
+        if (!core.validateUsername(newUsername)) {
+            core.editUsername(newUsername);
+        } else {
+            loginFrame.showUsernameExistsError();
+        }
     }
 
     public void editPassword(String newpass) {

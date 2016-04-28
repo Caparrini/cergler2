@@ -56,19 +56,28 @@ public class LoginFrame extends javax.swing.JFrame implements Watcher {
         JOptionPane.showMessageDialog(this, "Email y / o contraseña incorrectos");
     }
 
-    public void showUserExistsError() {
+    public void showEmailExistsError() {
         JOptionPane.showMessageDialog(this, "El correo introducido ya existe");
+    }
+
+    public void showUsernameExistsError() {
+        JOptionPane.showMessageDialog(this, "El usuario introducido ya existe");
     }
 
     @Override
     public void update(Watchable w, UpdateMessage arg) {
         switch (arg.getEvent()) {
 
+            case LOGIN:
+                // TODO open main window or open a new frame
+                break;
+
             case SIGNUP:
                 ProfilePanelHolder newUserDialog = new ProfilePanelHolder(this, this.controller, true);
                 newUserDialog.setLocationRelativeTo(null);
                 newUserDialog.setVisible(true);
                 // TODO controller.createNewUserEvent();
+                this.setVisible(false);
                 break;
         }
     }
