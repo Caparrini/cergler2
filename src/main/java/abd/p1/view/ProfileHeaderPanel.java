@@ -1,25 +1,42 @@
 package abd.p1.view;
 
-public class UserPanel extends javax.swing.JPanel {
+import javax.swing.*;
 
-    private AvatarPanel avatarPanel1;
+/**
+ * Used inside UserProfileEdit
+ */
+class ProfileHeaderPanel extends javax.swing.JPanel {
+
+    private AvatarPanel picturePanel;
     private java.awt.Label labelAge;
     private java.awt.Label labelNameUser;
 
-    public UserPanel() {
+    ProfileHeaderPanel() {
         initComponents();
+    }
+
+    void setUsername(String name) {
+        this.labelNameUser.setText(name);
+    }
+
+    void setAge(int age) {
+        this.labelAge.setText(String.valueOf(age).concat(" años"));
+    }
+
+    void setIcon(ImageIcon newIcon) {
+        this.picturePanel.setIcon(newIcon);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        avatarPanel1 = new AvatarPanel();
+        picturePanel = new AvatarPanel();
         labelNameUser = new java.awt.Label();
         labelAge = new java.awt.Label();
 
-        javax.swing.GroupLayout avatarPanel1Layout = new javax.swing.GroupLayout(avatarPanel1);
-        avatarPanel1.setLayout(avatarPanel1Layout);
+        javax.swing.GroupLayout avatarPanel1Layout = new javax.swing.GroupLayout(picturePanel);
+        picturePanel.setLayout(avatarPanel1Layout);
         avatarPanel1Layout.setHorizontalGroup(
             avatarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 64, Short.MAX_VALUE)
@@ -30,16 +47,16 @@ public class UserPanel extends javax.swing.JPanel {
         );
 
         labelNameUser.setFont(new java.awt.Font("Malayalam MN", 1, 18)); // NOI18N
-        labelNameUser.setText("UserName");
+        labelNameUser.setText("???");
 
-        labelAge.setText("Age");
+        labelAge.setText("??? Años");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(avatarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(picturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelNameUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -47,7 +64,7 @@ public class UserPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(avatarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(picturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(labelNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

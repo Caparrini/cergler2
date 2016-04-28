@@ -1,16 +1,61 @@
 package abd.p1.view;
 
-public class UserProfileEdit extends javax.swing.JDialog {
+import abd.p1.controller.MainController;
+import abd.p1.view.res.HintPassField;
+
+import javax.swing.*;
+
+/**
+ * Main User editing panel, constructor takes a 'editingSetting' boolean attribute,
+ * when set to true, shows edition section (for editing)
+ * when set to false, shows user profile (for viewing)
+ *
+ * Used inside LoginFrame
+ */
+class ProfilePanelHolder extends javax.swing.JDialog {
+
+    private UserProfilePanelContent viewProfilePanel;
 
     private java.awt.Button buttonCancel;
     private java.awt.Button buttonChangePassword;
     private java.awt.Button buttonSaveChanges;
-    private UserProfilePanel userProfilePanel1;
-    private UserProfilePanel userProfilePanel2;
 
-    public UserProfileEdit(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private boolean editingSetting;
+    private MainController controller;
+
+    ProfilePanelHolder(java.awt.Frame parent, MainController controller) {
+        this(parent, controller, false);
+    }
+
+    ProfilePanelHolder(java.awt.Frame parent, MainController controller, boolean _editable) {
+        super(parent, _editable);
+        this.controller = controller;
+        this.editingSetting = _editable;
+
+        initUI();
+    }
+
+    private void initUI() {
         initComponents();
+
+        buttonChangePassword.addActionListener(_l -> {
+            HintPassField newPassField = new HintPassField("Introduce una nueva contraseña");
+            JOptionPane.showMessageDialog(
+                null, newPassField,
+                "New password", JOptionPane.PLAIN_MESSAGE
+            );
+
+            char[] newpass = newPassField.getPassword();
+            if (newpass != null) {
+                controller.editPassword(String.valueOf(newpass));
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
+            }
+        });
+
+        buttonSaveChanges.addActionListener(_l -> this.dispose());
+
+        buttonCancel.addActionListener(_l -> this.dispose());
     }
 
     /**
@@ -21,26 +66,28 @@ public class UserProfileEdit extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-
-        userProfilePanel1 = new UserProfilePanel(true);
-        userProfilePanel2 = new UserProfilePanel(true);
+        viewProfilePanel = new UserProfilePanelContent(controller, editingSetting);
         buttonChangePassword = new java.awt.Button();
         buttonCancel = new java.awt.Button();
         buttonSaveChanges = new java.awt.Button();
+        buttonCancel.setVisible(editingSetting);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         buttonChangePassword.setLabel("Cambiar Contraseña");
+        buttonChangePassword.setVisible(editingSetting);
 
         buttonCancel.setLabel("Cancelar");
+        buttonCancel.setVisible(editingSetting);
 
         buttonSaveChanges.setLabel("Guardar Cambios");
+        buttonSaveChanges.setVisible(editingSetting);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userProfilePanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
+            .addComponent(viewProfilePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -53,7 +100,7 @@ public class UserProfileEdit extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(userProfilePanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewProfilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(buttonSaveChanges, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)

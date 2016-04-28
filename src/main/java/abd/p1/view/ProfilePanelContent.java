@@ -1,48 +1,122 @@
 package abd.p1.view;
 
-public class UserProfilePanel extends javax.swing.JPanel {
+import abd.p1.controller.MainController;
+import abd.p1.view.res.HintTextField;
+
+import javax.swing.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * Used inside UserProfileEdit
+ */
+class ProfilePanelContent extends javax.swing.JPanel {
 
 	private boolean editable;
+    private MainController controller;
 
     private java.awt.Button buttonAddHobby;
+    private java.awt.Button buttonDelHobby;
+    private java.awt.Button buttonEditHobby;
+
+    private java.awt.Label labelDescription;
+    private java.awt.TextArea descriptionArea;
+
     private java.awt.Button buttonChangeAvatar;
-    private java.awt.Button buttonChangeBirthDate;
+
     private java.awt.Button buttonChangeName;
     private java.awt.Button buttonChangeSex;
     private java.awt.Button buttonChangeTaste;
-    private java.awt.Button buttonDelHobby;
-    private java.awt.Button buttonEditHobby;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private java.awt.Label labelDescription;
-    private java.awt.Label labelHobby;
+
+    private java.awt.Button buttonChangeBirthDate;
+    private com.toedter.calendar.JDateChooser birthDateChooser;
+
+
     private java.awt.Label labelSex;
     private java.awt.Label labelTaste;
     private java.awt.Label labelUserSex;
     private java.awt.Label labelUserTaste;
     private java.awt.List list1;
-    private java.awt.TextArea textArea1;
-    private UserPanel userPanel1;
 
-	public UserProfilePanel(){
-		this.editable = false;
-		initComponents();
+    private ProfileHeaderPanel userDetailsPanel;
+
+	ProfilePanelContent(MainController controller) {
+        this(controller, false);
 	}
 
-	public UserProfilePanel(boolean editable) {
+	 ProfilePanelContent(MainController controller, boolean editable) {
+        this.controller = controller;
 		this.editable = editable;
-		initComponents();
+        initUI();
 	}
+
+    private int yearsBetween(Date first, Date second) {
+        Calendar a = Calendar.getInstance(Locale.US);
+        Calendar b = Calendar.getInstance(Locale.US);
+
+        a.setTime(first);
+        b.setTime(second);
+
+        int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
+        boolean asMonthIsLarger = a.get(Calendar.MONTH) > b.get(Calendar.MONTH);
+        boolean asDaysIsLarger = (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) &&
+                a.get(Calendar.DATE) > b.get(Calendar.DATE));
+
+        if (asMonthIsLarger || asDaysIsLarger) {
+            diff--;
+        }
+        return  diff;
+    }
+
+    private void initUI() {
+        initComponents();
+
+        buttonChangeName.addActionListener(_l -> {
+            HintTextField usernamePopup = new HintTextField("Nuevo usuario");
+            JOptionPane.showMessageDialog(null, usernamePopup, "Nuevo usuario", JOptionPane.PLAIN_MESSAGE);
+            String newUsername = usernamePopup.getText();
+            if (!newUsername.isEmpty()) {
+                controller.editUsername(newUsername);
+                this.userDetailsPanel.setUsername(newUsername);
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor completa los campos");
+            }
+        });
+
+        buttonChangeBirthDate.addActionListener(_l -> {
+            Date birthDate = birthDateChooser.getDate();
+            if (birthDate != null) {
+                controller.editBirthDate(birthDate);
+                userDetailsPanel.setAge(yearsBetween(birthDate, new Date()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Debes introducir una fecha");
+            }
+        });
+
+        buttonChangeAvatar.addActionListener(_l -> {
+            // TODO
+        });
+    }
+
+    private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void buttonChangeBirthDateActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        userPanel1 = new UserPanel();
+        userDetailsPanel = new ProfileHeaderPanel();
         buttonChangeName = new java.awt.Button();
         buttonChangeBirthDate = new java.awt.Button();
         labelDescription = new java.awt.Label();
-        textArea1 = new java.awt.TextArea();
-        labelHobby = new java.awt.Label();
+        descriptionArea = new java.awt.TextArea();
+        java.awt.Label labelHobby = new java.awt.Label();
         buttonChangeAvatar = new java.awt.Button();
         labelSex = new java.awt.Label();
         list1 = new java.awt.List();
@@ -54,7 +128,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         buttonChangeTaste = new java.awt.Button();
         labelUserSex = new java.awt.Label();
         labelUserTaste = new java.awt.Label();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        birthDateChooser = new com.toedter.calendar.JDateChooser();
 
         buttonChangeName.setLabel("Cambiar Nombre");
 
@@ -78,11 +152,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         buttonAddHobby.setLabel("Añadir Afición");
 
         buttonDelHobby.setLabel("Eliminar Af. Seleccionada");
-        buttonDelHobby.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDelHobbyActionPerformed(evt);
-            }
-        });
+        buttonDelHobby.addActionListener(evt -> buttonDelHobbyActionPerformed(evt));
 
         buttonEditHobby.setLabel("Edita Af. Seleccionada");
 
@@ -101,9 +171,9 @@ public class UserProfilePanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(userPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(birthDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,15 +205,15 @@ public class UserProfilePanel extends javax.swing.JPanel {
                             .addComponent(buttonEditHobby, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonChangeSex, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonChangeTaste, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(textArea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(descriptionArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(birthDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(buttonChangeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,7 +223,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
                     .addComponent(buttonChangeAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(descriptionArea, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelHobby, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -185,13 +255,5 @@ public class UserProfilePanel extends javax.swing.JPanel {
         buttonChangeTaste.setVisible(editable);
         buttonDelHobby.setVisible(editable);
         buttonEditHobby.setVisible(editable);
-    }// </editor-fold>                        
-
-    private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-    }                                              
-
-    private void buttonChangeBirthDateActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        // TODO add your handling code here:
-    }
+    }// </editor-fold>
 }
