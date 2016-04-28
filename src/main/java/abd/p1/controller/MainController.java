@@ -4,6 +4,8 @@ import abd.p1.misc.Watcher;
 import abd.p1.model.Core;
 import abd.p1.view.LoginFrame;
 
+import java.util.Date;
+
 public class MainController {
     private Core core;
     private LoginFrame loginFrame;
@@ -42,15 +44,19 @@ public class MainController {
         }
     }
 
-    public void createNewUserEvent() {
-        core.signup();
+    public void createNewUserEvent(String username) {
+        core.signup(username);
     }
 
-    void logoutEvent() {
-        core.logout();
+    public void editBirthDate(Date date) {
+        core.editBirthDate(date);
     }
 
-    void editUsernameEvent(String newUsername) {
+    public void editUsername(String newUsername) {
         core.editUsername(newUsername);
+    }
+
+    public void editPassword(String newpass) {
+        core.changePassword(newpass);
     }
 }
