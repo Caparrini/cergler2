@@ -20,8 +20,14 @@ public class Users {
         dao.delete(u);
     }
 
-    public Optional<User> isPresent(String email) {
-        return dao.find(email);
+    public boolean isPresent(String email) {
+        return dao.find(email).isPresent();
+    }
+
+    public boolean isUsernamePresent(String username) {
+        return dao.findAll()
+                .stream()
+                .anyMatch(e -> e.getUsername().equals(username));
     }
 
     public Optional<User> validate(String email, String password) {

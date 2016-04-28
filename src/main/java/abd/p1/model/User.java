@@ -72,7 +72,8 @@ public class User {
 
     protected User() {}
 
-    public User(String email, String password) {
+    public User(String username, String email, String password) {
+        this.name = username;
         this.email = email;
         this.password = password;
     }
@@ -83,6 +84,10 @@ public class User {
 
     public void setUsername(String username) {
         this.name = username;
+    }
+
+    public String getUsername() {
+        return this.name;
     }
 
     public void setBirthDate(Date date) {
