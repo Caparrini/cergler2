@@ -95,9 +95,13 @@ public class LoginFrame extends javax.swing.JFrame implements Watcher {
                 switch (action) {
 
                     case "login":
-                        controller.loginEvent(email, pass);
-                        emailField.setText(null);
-                        passwordField.setText(null);
+                        if(controller.loginEvent(email, pass)){
+                        	new MainFrame().setVisible(true);
+                        	this.dispose();
+                        }else{
+                        	emailField.setText(null);
+                        	passwordField.setText(null);
+                        }
                         break;
 
                     case "signup":
@@ -166,7 +170,7 @@ public class LoginFrame extends javax.swing.JFrame implements Watcher {
                                         .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
+        setResizable(false);
         pack();
         setLocationRelativeTo(null);
     }

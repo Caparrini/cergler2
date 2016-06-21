@@ -27,12 +27,13 @@ public class MainController {
         core.quit();
     }
 
-    public void loginEvent(String email, String password) {
+    public boolean loginEvent(String email, String password) {
         if (core.validatePass(email, password)) {
             core.login();
-            // TODO: show main panel
+            return true;
         } else {
             loginFrame.showValidateError();
+            return false;
         }
     }
 
