@@ -42,12 +42,18 @@ public class UserDao extends GenericDao<String, User> {
         this.delete(session.load(User.class, id));
         session.close();
     }
-    
+
     public List<User> findAllWihoutDuplicaterGender(OtherGender a){
     	Session sesion = sessionF.openSession();
-    	String hql = "SELECT u FROM users u WHERE u.gender like :taste OR u.gender like :taste";
-
+    	String hql = " FROM User AS u WHERE u.gender LIKE :taste";
     	Query query = sesion.createQuery(hql);
+
+    	if(a == OtherGender.MALE){
+    		query.setString("taste","%MALE%");
+    	}else if(a == OtherGender.FEMALE){
+    		query.setString("taste","%FEMALE%");
+    	}
+
     	List<User> list = query.list();
     	return list;
     }

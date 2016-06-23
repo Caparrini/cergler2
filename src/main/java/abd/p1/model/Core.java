@@ -124,7 +124,7 @@ public class Core extends Watchable {
 
 	public DefaultListModel<User> getUsers() {
 		DefaultListModel<User> aux = new DefaultListModel<User>();
-		List<User> usersIn = udao.findAll();
+		List<User> usersIn = udao.findAllWihoutDuplicaterGender(logedUser.getTasteEnum());
 		Iterator<User> it = usersIn.iterator();
 		while(it.hasNext()){
 			aux.addElement(it.next());

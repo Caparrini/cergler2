@@ -139,7 +139,9 @@ public class User {
 			return "Mujer";
 		}
 	}
-
+	public OtherGender getTasteEnum(){
+		return otherGender;
+	}
 	public List<String> getIntereses() {
 		return interests;
 	}
