@@ -3,6 +3,8 @@ package abd.p1;
 import abd.p1.controller.MainController;
 import abd.p1.model.Core;
 import abd.p1.view.LoginFrame;
+import abd.p1.view.UserProfileEdit;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -33,6 +35,23 @@ public class Main {
     public static void main(String[] args) {
         try {
             SessionFactory sf = buildSessionFactory();
+
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(UserProfileEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                java.util.logging.Logger.getLogger(UserProfileEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(UserProfileEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(UserProfileEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
 
             Core core = new Core(sf);
             MainController controller = new MainController(core);

@@ -96,7 +96,8 @@ public class LoginFrame extends javax.swing.JFrame implements Watcher {
 
                     case "login":
                         if(controller.loginEvent(email, pass)){
-                        	new MainFrame().setVisible(true);
+                        	controller.setSesion(email);
+                        	new MainFrame(controller).setVisible(true);
                         	this.dispose();
                         }else{
                         	emailField.setText(null);

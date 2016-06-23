@@ -13,17 +13,10 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    enum Gender {
-        MALE,
-        FEMALE
-    }
-
-    enum OtherGender {
-        MALE,
-        FEMALE,
-        BOTH
-    }
-
+    @Override
+	public String toString() {
+		return "Nombre=" + name + ", birthDate=" + birthDate + ".";
+	}
     @Id
     @Column(length = 250)
     private String email;
@@ -57,7 +50,7 @@ public class User {
     @Column(length = 500)
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "interests")
     private List<String> interests;
 
@@ -121,4 +114,33 @@ public class User {
     public void setProfileImage(byte[] b) {
         this.profileImage = b;
     }
+
+	public int getAge() {
+		Date a = new Date();
+		return -birthDate.getYear()+a.getYear();
+	}
+
+	public String getDesc() {
+		return description;
+	}
+
+	public String getSex() {
+		if(gender.equals(gender.MALE)){
+			return "Hombre";
+		}else{
+			return "Mujer";
+		}
+	}
+
+	public String getTaste() {
+		if(otherGender.equals(otherGender.MALE)){
+			return "Hombre";
+		}else{
+			return "Mujer";
+		}
+	}
+
+	public List<String> getIntereses() {
+		return interests;
+	}
 }

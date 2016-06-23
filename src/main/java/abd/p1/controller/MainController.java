@@ -2,9 +2,13 @@ package abd.p1.controller;
 
 import abd.p1.misc.Watcher;
 import abd.p1.model.Core;
+import abd.p1.model.User;
 import abd.p1.view.LoginFrame;
 
 import java.util.Date;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 public class MainController {
     private Core core;
@@ -68,4 +72,17 @@ public class MainController {
     public void editPassword(String newpass) {
         core.changePassword(newpass);
     }
+
+	public DefaultListModel<User> getListUserModel() {
+		return core.getUsers();
+
+	}
+
+	public void setSesion(String email) {
+		core.setUser(email);
+	}
+
+	public User getLogUser() {
+		return core.getLogUser();
+	}
 }

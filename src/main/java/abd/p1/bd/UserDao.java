@@ -1,6 +1,10 @@
 package abd.p1.bd;
 
+import abd.p1.model.OtherGender;
 import abd.p1.model.User;
+import abd.p1.model.Gender;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -37,5 +41,14 @@ public class UserDao extends GenericDao<String, User> {
         Session session = sessionF.openSession();
         this.delete(session.load(User.class, id));
         session.close();
+    }
+    
+    public List<User> findAllWihoutDuplicaterGender(OtherGender a){
+    	Session sesion = sessionF.openSession();
+    	String hql = "SELECT u FROM users u WHERE u.gender like :taste OR u.gender like :taste";
+
+    	Query query = sesion.createQuery(hql);
+    	List<User> list = query.list();
+    	return list;
     }
 }

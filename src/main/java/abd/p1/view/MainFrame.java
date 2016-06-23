@@ -1,5 +1,7 @@
 package abd.p1.view;
 
+import abd.p1.controller.MainController;
+
 /**
  *
  * @author Capa
@@ -9,7 +11,8 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrameA
      */
-    public MainFrame() {
+    public MainFrame(MainController ctrl) {
+    	this.ctrl = ctrl;
         initComponents();
     }
 
@@ -24,7 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        userMainPanel1 = new UserMainPanel();
+        userMainPanel1 = new UserMainPanel(ctrl);
         jPanel2 = new javax.swing.JPanel();
         questionPanel1 = new QuestionPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -95,5 +98,6 @@ public class MainFrame extends javax.swing.JFrame {
     private NRMessagesPanel nRMessagesPanel1;
     private QuestionPanel questionPanel1;
     private UserMainPanel userMainPanel1;
+    private MainController ctrl;
     // End of variables declaration                   
 }

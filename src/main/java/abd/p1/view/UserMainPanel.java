@@ -1,5 +1,11 @@
 package abd.p1.view;
 
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+
+import abd.p1.controller.MainController;
+import abd.p1.model.User;
+
 /**
  *
  * @author Capa
@@ -9,7 +15,8 @@ public class UserMainPanel extends javax.swing.JPanel {
     /**
      * Creates new form UserMainPanel
      */
-    public UserMainPanel() {
+    public UserMainPanel(MainController ctrl) {
+    	this.ctrl=ctrl;
         initComponents();
     }
 
@@ -24,12 +31,16 @@ public class UserMainPanel extends javax.swing.JPanel {
 
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         textArea1 = new java.awt.TextArea();
-        listUsers = new java.awt.List();
+        listUsers = new javax.swing.JList<User>();
         checkboxNameFilter = new java.awt.Checkbox();
         checkboxFriendsFilter = new java.awt.Checkbox();
         textFieldNameFilter = new java.awt.TextField();
         jButtonProfileEdit = new javax.swing.JButton();
         jButtonShowProfile = new javax.swing.JButton();
+
+        listUsers.setModel(ctrl.getListUserModel());
+        //listUsers.setCellRenderer(new UserCellRenderer());
+
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -37,10 +48,22 @@ public class UserMainPanel extends javax.swing.JPanel {
 
         checkboxFriendsFilter.setLabel("Mostrar solo Amigos");
 
-        jButtonProfileEdit.setLabel("Modificar Perfil");
+        jButtonProfileEdit.setText("Modificar Perfil");
 
-        jButtonShowProfile.setLabel("Ver Perfil Seleccionado");
+        jButtonShowProfile.setText("Ver Perfil Seleccionado");
 
+
+        jButtonProfileEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProfile(evt);
+            }
+        });
+
+        jButtonShowProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewProfile(evt);
+            }
+        });
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,14 +106,24 @@ public class UserMainPanel extends javax.swing.JPanel {
     }// </editor-fold>                        
 
 
-    // Variables declaration - do not modify                     
+    protected void viewProfile(ActionEvent evt) {
+		new UserProfileFunctionsDialog(null, true).setVisible(true);
+	}
+
+	protected void editProfile(ActionEvent evt) {
+		new UserProfileEdit(null,true,ctrl).setVisible(true);
+	}
+
+
+	// Variables declaration - do not modify                     
     private java.awt.Checkbox checkboxFriendsFilter;
     private java.awt.Checkbox checkboxNameFilter;
     private javax.swing.JButton jButtonProfileEdit;
     private javax.swing.JButton jButtonShowProfile;
     private javax.swing.JFormattedTextField jFormattedTextField1;
-    private java.awt.List listUsers;
+    private javax.swing.JList<User> listUsers;
     private java.awt.TextArea textArea1;
     private java.awt.TextField textFieldNameFilter;
+    private MainController ctrl;
     // End of variables declaration                   
 }

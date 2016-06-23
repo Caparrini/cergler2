@@ -1,11 +1,19 @@
 package abd.p1.model;
 
+import abd.p1.bd.UserDao;
 import abd.p1.misc.UpdateMessage;
 import abd.p1.misc.Watchable;
+
 import org.hibernate.SessionFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 public class Core extends Watchable {
 
@@ -13,6 +21,10 @@ public class Core extends Watchable {
 
     private User logedUser;
     private Users presentUsers;
+    private UserDao udao;
+
+	private DefaultListModel<User> users;
+
 
     private String inProcessEmail;
     private String inProcessPassword;
@@ -20,6 +32,7 @@ public class Core extends Watchable {
     public Core(SessionFactory _sessionF) {
         this.sessionF = _sessionF;
         this.presentUsers = new Users(sessionF);
+        this.udao = new UserDao(sessionF);
     }
 
     public void login() {
@@ -108,4 +121,22 @@ public class Core extends Watchable {
     public void changeUserPic(byte[] b) {
         this.logedUser.setProfileImage(b);
     }
+
+	public DefaultListModel<User> getUsers() {
+		DefaultListModel<User> aux = new DefaultListModel<User>();
+		List<User> usersIn = udao.findAll();
+		Iterator<User> it = usersIn.iterator();
+		while(it.hasNext()){
+			aux.addElement(it.next());
+		}
+		return aux;
+	}
+
+	public void setUser(String email) {
+		this.logedUser = udao.find(email).get();
+	}
+
+	public User getLogUser() {
+		return logedUser;
+	}
 }

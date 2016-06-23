@@ -7,13 +7,12 @@ import javax.swing.ImageIcon;
 
 public class AvatarPanel extends javax.swing.JPanel {
     private static final int ICON_SIZE = 64;
-
     private ImageIcon icon;
     private Image rescaledIcon;
 
     public AvatarPanel(){
         try {
-            ImageIcon defaultIcon = new ImageIcon(getClass().getClassLoader().getResource("main/images/defaultuser.png"));
+            ImageIcon defaultIcon = new ImageIcon(getClass().getClassLoader().getResource("default.png"));
             this.setPreferredSize(new Dimension(ICON_SIZE, ICON_SIZE));
             this.icon = defaultIcon;
             this.rescaledIcon = defaultIcon.getImage().getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_DEFAULT);
