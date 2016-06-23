@@ -49,9 +49,11 @@ public class UserDao extends GenericDao<String, User> {
     	Query query = sesion.createQuery(hql);
 
     	if(a == OtherGender.MALE){
-    		query.setString("taste","%MALE%");
+    		query.setString("taste","MALE");
     	}else if(a == OtherGender.FEMALE){
-    		query.setString("taste","%FEMALE%");
+    		query.setString("taste","FEMALE");
+    	}else{
+    		query.setString("taste","%MALE%");
     	}
 
     	List<User> list = query.list();
