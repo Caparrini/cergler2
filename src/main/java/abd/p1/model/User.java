@@ -134,9 +134,11 @@ public class User {
 
 	public String getTaste() {
 		if(otherGender.equals(otherGender.MALE)){
-			return "Hombre";
+			return "Hombres";
+		}else if (otherGender.equals(otherGender.FEMALE)){
+			return "Mujeres";
 		}else{
-			return "Mujer";
+			return "Hombres/Mujeres";
 		}
 	}
 	public OtherGender getTasteEnum(){
@@ -144,5 +146,9 @@ public class User {
 	}
 	public List<String> getIntereses() {
 		return interests;
+	}
+
+	public Date getBirthDate() {
+		return this.birthDate;
 	}
 }

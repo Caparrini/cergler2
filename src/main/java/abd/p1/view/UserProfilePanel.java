@@ -92,6 +92,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         buttonChangeName.setVisible(editable);
         buttonChangeBirthDate.setVisible(editable);
         buttonChangeAvatar.setVisible(editable);
+        jDateChooser1.setEnabled(editable);
 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -192,6 +193,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         labelUserSex.setText(u.getSex());
 
         labelUserTaste.setText(u.getTaste());
+        jDateChooser1.setDate(u.getBirthDate());
     }
     private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
