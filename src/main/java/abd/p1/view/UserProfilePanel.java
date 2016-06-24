@@ -13,7 +13,8 @@ public class UserProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form UserProfilePanel
      */
-    public UserProfilePanel() {
+    public UserProfilePanel(boolean editable) {
+    	this.editable = editable;
         initComponents();
     }
 
@@ -82,6 +83,16 @@ public class UserProfilePanel extends javax.swing.JPanel {
         labelUserSex.setText("Masculino");
 
         labelUserTaste.setText("Mujeres");
+
+        buttonAddHobby.setVisible(editable);
+        buttonDelHobby.setVisible(editable);
+        buttonEditHobby.setVisible(editable);
+        buttonChangeSex.setVisible(editable);
+        buttonChangeTaste.setVisible(editable);
+        buttonChangeName.setVisible(editable);
+        buttonChangeBirthDate.setVisible(editable);
+        buttonChangeAvatar.setVisible(editable);
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,5 +221,6 @@ public class UserProfilePanel extends javax.swing.JPanel {
     private java.awt.List list1;
     private java.awt.TextArea textArea1;
     private UserPanel userPanel1;
+    private boolean editable;
     // End of variables declaration                   
 }

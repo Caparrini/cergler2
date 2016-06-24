@@ -30,7 +30,7 @@ public class UserProfileFunctionsDialog extends javax.swing.JDialog {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        userProfilePanel1 = new UserProfilePanel();
+        userProfilePanel1 = new UserProfilePanel(false);
         jPanel2 = new javax.swing.JPanel();
         compatibilityPanel1 = new CompatibilityPanel();
         jPanel3 = new javax.swing.JPanel();
