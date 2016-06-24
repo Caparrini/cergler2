@@ -1,10 +1,16 @@
 package abd.p1.view;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Base64;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
+import abd.p1.model.Gender;
 import abd.p1.model.User;
 
 /**
@@ -37,6 +43,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         textArea1 = new java.awt.TextArea();
         labelHobby = new java.awt.Label();
         buttonChangeAvatar = new java.awt.Button();
+        
         labelSex = new java.awt.Label();
         list1 = new java.awt.List();
         labelTaste = new java.awt.Label();
@@ -50,7 +57,11 @@ public class UserProfilePanel extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         buttonChangeName.setLabel("Cambiar Nombre");
-
+        buttonChangeName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChangeNameActionPerformed(evt);
+            }
+        });
         buttonChangeBirthDate.setLabel("Cambiar Fecha Nacimiento");
         buttonChangeBirthDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,18 +69,27 @@ public class UserProfilePanel extends javax.swing.JPanel {
             }
         });
 
+
         labelDescription.setText("Descripción:");
 
         labelHobby.setText("Aficiones:");
 
         buttonChangeAvatar.setLabel("Cambiar Avatar");
-
+        buttonChangeAvatar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarAvatarActionPerformed(evt);
+            }
+        });
         labelSex.setText("Sexo:");
 
         labelTaste.setText("Busca:");
 
         buttonAddHobby.setLabel("Añadir Afición");
-
+        buttonAddHobby.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHobbyEvent(evt);
+            }
+        });
         buttonDelHobby.setLabel("Eliminar Af. Seleccionada");
         buttonDelHobby.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,11 +98,24 @@ public class UserProfilePanel extends javax.swing.JPanel {
         });
 
         buttonEditHobby.setLabel("Edita Af. Seleccionada");
-
+        buttonEditHobby.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editHobbyActionPerformed(evt);
+            }
+        });
         buttonChangeSex.setLabel("Cambiar Sexo");
+        buttonChangeSex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeSexActionPerformed(evt);
+            }
+        });
 
         buttonChangeTaste.setLabel("Cambiar Preferencia");
-
+        buttonChangeTaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeTasteActionPerformed(evt);
+            }
+        });
         labelUserSex.setText("Masculino");
 
         labelUserTaste.setText("Mujeres");
@@ -182,7 +215,65 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
-    public void setUser(User u){
+    protected void buttonChangeNameActionPerformed(ActionEvent evt) {
+    	String name = JOptionPane.showInputDialog("Introduce hobby");
+    	userPanel1.setName(name);
+	}
+
+	protected void changeTasteActionPerformed(ActionEvent evt) {
+    	String[] options = new String[] {"Hombres","Mujeres","Hombres/Mujeres"};
+        int response = JOptionPane.showOptionDialog(null, "Cambia gusto", "Cambio",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+            null, options, options[2]);
+        switch(response){
+        	case 0:labelUserTaste.setText(options[response]);break;
+        	case 1:labelUserTaste.setText(options[response]);break;
+        	case 2:labelUserTaste.setText(options[response]);break;
+        	default:break;
+        }
+	}
+
+	protected void changeSexActionPerformed(ActionEvent evt) {
+    	String[] options = new String[] {"Hombre","Mujer"};
+        int response = JOptionPane.showOptionDialog(null, "Cambia sexo", "Cambio",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+            null, options, options[1]);
+        switch(response){
+        	case 0:labelUserSex.setText(options[response]);break;
+        	case 1:labelUserSex.setText(options[response]);break;
+        	default:break;
+        }
+	}
+
+	protected void editHobbyActionPerformed(ActionEvent evt) {
+    	int index = list1.getSelectedIndex();
+    	String hobby = JOptionPane.showInputDialog("Edita hobby");
+    	list1.replaceItem(hobby, index);
+	}
+
+	protected void addHobbyEvent(ActionEvent evt) {
+    	String hobby = JOptionPane.showInputDialog("Introduce hobby");
+    	list1.add(hobby);
+
+	}
+
+	protected void cambiarAvatarActionPerformed(ActionEvent evt) {
+		JFileChooser a = new JFileChooser();
+		Component paintingChild = null;
+		int returnVal = a.showOpenDialog(paintingChild);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = a.getSelectedFile();
+	        try{
+	        	userPanel1.setIcon(new ImageIcon(file.toString()));
+	        }catch(Exception e){
+	        	System.err.println("There are no pic");
+	        }
+
+        }
+	}
+
+	public void setUser(User u){
     	//Cambiar foto TODO
     	userPanel1.setName(u.getUsername());
     	userPanel1.setAge(u.getAge());
@@ -205,7 +296,8 @@ public class UserProfilePanel extends javax.swing.JPanel {
     }
 
     private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    	int index = list1.getSelectedIndex();
+    	list1.remove(index);
     }                                              
 
     private void buttonChangeBirthDateActionPerformed(java.awt.event.ActionEvent evt) {                                                      

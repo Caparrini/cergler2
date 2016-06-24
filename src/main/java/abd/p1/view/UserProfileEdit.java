@@ -1,5 +1,7 @@
 package abd.p1.view;
 
+import java.awt.event.ActionEvent;
+
 import abd.p1.controller.MainController;
 
 /**
@@ -36,11 +38,23 @@ public class UserProfileEdit extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         buttonChangePassword.setLabel("Cambiar Contraseña");
-
+        buttonChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChangePasswordActionPerformed(evt);
+            }
+        });
         buttonCancel.setLabel("Cancelar");
-
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
         buttonSaveChanges.setLabel("Guardar Cambios");
-
+        buttonSaveChanges.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveChangesActionPerformed(evt);
+            }
+        });
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,7 +86,22 @@ public class UserProfileEdit extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>                        
 
-    // Variables declaration - do not modify                     
+    protected void buttonSaveChangesActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void buttonCancelActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void buttonChangePasswordActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	// Variables declaration - do not modify                     
     private java.awt.Button buttonCancel;
     private java.awt.Button buttonChangePassword;
     private java.awt.Button buttonSaveChanges;
