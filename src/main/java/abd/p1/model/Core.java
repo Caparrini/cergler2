@@ -158,4 +158,14 @@ public class Core extends Watchable {
 	public User getUserToView() {
 		return userToView;
 	}
+
+	public void modifyLogedUser(User newData) {
+		logedUser.setUsername(newData.getUsername());
+		logedUser.setDescription(newData.getDesc());
+		logedUser.setGender(newData.getSex());
+		logedUser.setGenderPreference(newData.getTasteEnum());
+		logedUser.setProfileImage(newData.getIcon());
+		//logedUser.setPassword();
+		udao.update(logedUser);
+	}
 }

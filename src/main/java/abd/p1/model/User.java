@@ -63,7 +63,7 @@ public class User {
     @Transient private ArrayList<Message> received;
     @Transient private ArrayList<Message> sent;
 
-    protected User() {}
+    public User() {}
 
     public User(String username, String email, String password) {
         this.name = username;
@@ -125,7 +125,7 @@ public class User {
 	}
 
 	public String getSex() {
-		if(gender.equals(gender.MALE)){
+		if(gender.equals(Gender.MALE)){
 			return "Hombre";
 		}else{
 			return "Mujer";
@@ -133,9 +133,9 @@ public class User {
 	}
 
 	public String getTaste() {
-		if(otherGender.equals(otherGender.MALE)){
+		if(otherGender.equals(OtherGender.MALE)){
 			return "Hombres";
-		}else if (otherGender.equals(otherGender.FEMALE)){
+		}else if (otherGender.equals(OtherGender.FEMALE)){
 			return "Mujeres";
 		}else{
 			return "Hombres/Mujeres";
@@ -155,5 +155,23 @@ public class User {
 	public byte[] getIcon() {
 		// TODO Auto-generated method stub
 		return profileImage;
+	}
+
+	public void setGender(String text) {
+		if(text.equalsIgnoreCase(Gender.MALE.toString())){
+			gender = Gender.MALE;
+		}else{
+			gender = Gender.FEMALE;
+		}
+	}
+
+	public void setGenderPreference(String text) {
+		if(text.equalsIgnoreCase(OtherGender.MALE.toString())){
+			otherGender = OtherGender.MALE;
+		}else if (text.equalsIgnoreCase(OtherGender.FEMALE.toString())){
+			otherGender = OtherGender.FEMALE;
+		}else{
+			otherGender = OtherGender.BOTH;
+		}
 	}
 }

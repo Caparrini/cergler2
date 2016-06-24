@@ -97,4 +97,8 @@ public class MainController {
 	public User getUserToView() {
 		return core.getUserToView();
 	}
+
+	public void modifyLogedUser(User newData) {
+		core.modifyLogedUser(newData);
+	}
 }

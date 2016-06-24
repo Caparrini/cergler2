@@ -54,4 +54,9 @@ public class AvatarPanel extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>
+
+	public byte[] getIcon() {
+		//TODO muy fuerte devolver icon en forma de byte[]
+		return null;
+	}
 }

@@ -216,7 +216,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>                        
     protected void buttonChangeNameActionPerformed(ActionEvent evt) {
-    	String name = JOptionPane.showInputDialog("Introduce hobby");
+    	String name = JOptionPane.showInputDialog("Cambiar nombre");
     	userPanel1.setName(name);
 	}
 
@@ -303,7 +303,17 @@ public class UserProfilePanel extends javax.swing.JPanel {
     private void buttonChangeBirthDateActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
     }                                                     
-
+	public User getUserData() {
+		User aux = new User();
+		aux.setBirthDate(jDateChooser1.getDate());
+		aux.setDescription(textArea1.getText());
+		aux.setGender(labelSex.getText());
+		aux.setGenderPreference(labelTaste.getText());
+		aux.setUsername(userPanel1.getUserName());
+		aux.setProfileImage(userPanel1.getIcon());
+		//aux.setPassword(p);
+		return aux;
+	}
 
     // Variables declaration - do not modify                     
     private java.awt.Button buttonAddHobby;
@@ -326,4 +336,5 @@ public class UserProfilePanel extends javax.swing.JPanel {
     private UserPanel userPanel1;
     private boolean editable;
     // End of variables declaration                   
+
 }

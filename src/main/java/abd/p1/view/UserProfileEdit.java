@@ -3,6 +3,7 @@ package abd.p1.view;
 import java.awt.event.ActionEvent;
 
 import abd.p1.controller.MainController;
+import abd.p1.model.User;
 
 /**
  *
@@ -87,13 +88,12 @@ public class UserProfileEdit extends javax.swing.JDialog {
     }// </editor-fold>                        
 
     protected void buttonSaveChangesActionPerformed(ActionEvent evt) {
-		// TODO Auto-generated method stub
-		
+		User newData = userProfilePanel2.getUserData();
+		ctrl.modifyLogedUser(newData);
 	}
 
 	protected void buttonCancelActionPerformed(ActionEvent evt) {
-		// TODO Auto-generated method stub
-		
+		this.dispose();
 	}
 
 	protected void buttonChangePasswordActionPerformed(ActionEvent evt) {

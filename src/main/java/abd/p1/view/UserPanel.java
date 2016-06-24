@@ -78,5 +78,11 @@ public class UserPanel extends javax.swing.JPanel {
 	public void setIcon(ImageIcon imageIcon) {
 		avatarPanel1.setIcon(imageIcon);
 	}
+	public byte[] getIcon() {
+		return avatarPanel1.getIcon();
+	}
+	public String getUserName() {
+		return labelNameUser.getText();
+	}
 }
 

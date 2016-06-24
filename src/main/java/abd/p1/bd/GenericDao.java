@@ -30,7 +30,7 @@ public abstract class GenericDao<K extends Serializable, V> {
     public void update(V value) {
         Session session = sessionF.openSession();
         Transaction tx = session.beginTransaction();
-        session.refresh(value);
+        session.saveOrUpdate(value);
         tx.commit();
         session.close();
     }

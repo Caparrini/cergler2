@@ -40,8 +40,8 @@ public class UserMainPanel extends javax.swing.JPanel {
         jButtonProfileEdit = new javax.swing.JButton();
         jButtonShowProfile = new javax.swing.JButton();
 
-        listUsers.setModel(ctrl.getListUserModel());
         //listUsers.setCellRenderer(new UserCellRenderer());
+        listUsers.setModel(ctrl.getListUserModel());
 
 
         jFormattedTextField1.setText("jFormattedTextField1");
@@ -53,7 +53,7 @@ public class UserMainPanel extends javax.swing.JPanel {
         jButtonProfileEdit.setText("Modificar Perfil");
 
         jButtonShowProfile.setText("Ver Perfil Seleccionado");
-        
+
         textFieldNameFilter.addActionListener(
         		new AbstractAction()
         		{
@@ -64,7 +64,6 @@ public class UserMainPanel extends javax.swing.JPanel {
         		    }
         		}
             );
-
 
         jButtonProfileEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
