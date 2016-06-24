@@ -151,4 +151,9 @@ public class User {
 	public Date getBirthDate() {
 		return this.birthDate;
 	}
+
+	public byte[] getIcon() {
+		// TODO Auto-generated method stub
+		return profileImage;
+	}
 }

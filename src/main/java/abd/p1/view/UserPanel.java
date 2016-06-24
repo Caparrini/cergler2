@@ -1,5 +1,7 @@
 package abd.p1.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Capa
@@ -73,5 +75,8 @@ public class UserPanel extends javax.swing.JPanel {
     private java.awt.Label labelAge;
     private java.awt.Label labelNameUser;
     // End of variables declaration                   
+	public void setIcon(ImageIcon imageIcon) {
+		avatarPanel1.setIcon(imageIcon);
+	}
 }
 

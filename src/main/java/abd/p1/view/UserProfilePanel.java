@@ -1,6 +1,9 @@
 package abd.p1.view;
 
+import java.util.Base64;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import abd.p1.model.User;
 
@@ -194,7 +197,13 @@ public class UserProfilePanel extends javax.swing.JPanel {
 
         labelUserTaste.setText(u.getTaste());
         jDateChooser1.setDate(u.getBirthDate());
+        try{
+        	userPanel1.setIcon(new ImageIcon(u.getIcon()));
+        }catch(Exception e){
+        	System.err.println("There are no pic");
+        }
     }
+
     private void buttonDelHobbyActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
     }                                              
