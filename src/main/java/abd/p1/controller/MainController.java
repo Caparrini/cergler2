@@ -85,4 +85,8 @@ public class MainController {
 	public User getLogUser() {
 		return core.getLogUser();
 	}
+
+	public DefaultListModel<User> getListUserModel(String text) {
+		return core.getUsers(text);
+	}
 }

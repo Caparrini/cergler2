@@ -3,6 +3,8 @@ package abd.p1.view;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+
 import abd.p1.controller.MainController;
 import abd.p1.model.User;
 
@@ -51,6 +53,17 @@ public class UserMainPanel extends javax.swing.JPanel {
         jButtonProfileEdit.setText("Modificar Perfil");
 
         jButtonShowProfile.setText("Ver Perfil Seleccionado");
+        
+        textFieldNameFilter.addActionListener(
+        		new AbstractAction()
+        		{
+        		    @Override
+        		    public void actionPerformed(ActionEvent e)
+        		    {
+                        searchFilterUsers(e);
+        		    }
+        		}
+            );
 
 
         jButtonProfileEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +119,13 @@ public class UserMainPanel extends javax.swing.JPanel {
     }// </editor-fold>                        
 
 
-    protected void viewProfile(ActionEvent evt) {
+    protected void searchFilterUsers(ActionEvent e) {
+		// TODO Auto-generated method stub
+        listUsers.setModel(ctrl.getListUserModel(textFieldNameFilter.getText()));
+
+	}
+
+	protected void viewProfile(ActionEvent evt) {
 		new UserProfileFunctionsDialog(null, true).setVisible(true);
 	}
 

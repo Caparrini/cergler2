@@ -139,4 +139,14 @@ public class Core extends Watchable {
 	public User getLogUser() {
 		return logedUser;
 	}
+
+	public DefaultListModel<User> getUsers(String text) {
+		DefaultListModel<User> aux = new DefaultListModel<User>();
+		List<User> usersIn = udao.findAllWihoutDuplicaterGender(logedUser.getTasteEnum(),text);
+		Iterator<User> it = usersIn.iterator();
+		while(it.hasNext()){
+			aux.addElement(it.next());
+		}
+		return aux;
+	}
 }
