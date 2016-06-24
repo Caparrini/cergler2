@@ -120,13 +120,13 @@ public class UserMainPanel extends javax.swing.JPanel {
 
 
     protected void searchFilterUsers(ActionEvent e) {
-		// TODO Auto-generated method stub
         listUsers.setModel(ctrl.getListUserModel(textFieldNameFilter.getText()));
-
 	}
 
 	protected void viewProfile(ActionEvent evt) {
-		new UserProfileFunctionsDialog(null, true).setVisible(true);
+		//int index = listUsers.getSelectedIndex();
+		ctrl.setUserToView(listUsers.getSelectedValue());
+		new UserProfileFunctionsDialog(null, true,ctrl).setVisible(true);
 	}
 
 	protected void editProfile(ActionEvent evt) {

@@ -89,4 +89,12 @@ public class MainController {
 	public DefaultListModel<User> getListUserModel(String text) {
 		return core.getUsers(text);
 	}
+
+	public void setUserToView(User selectedValue) {
+		core.setUserToView(selectedValue);
+	}
+
+	public User getUserToView() {
+		return core.getUserToView();
+	}
 }

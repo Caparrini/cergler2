@@ -20,6 +20,7 @@ public class Core extends Watchable {
     private SessionFactory sessionF;
 
     private User logedUser;
+    private User userToView;
     private Users presentUsers;
     private UserDao udao;
 
@@ -148,5 +149,13 @@ public class Core extends Watchable {
 			aux.addElement(it.next());
 		}
 		return aux;
+	}
+
+	public void setUserToView(User selectedValue) {
+		this.userToView=selectedValue;
+	}
+
+	public User getUserToView() {
+		return userToView;
 	}
 }
